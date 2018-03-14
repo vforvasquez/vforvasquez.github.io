@@ -1,1 +1,233 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+// Sitewide Helpers
+.align-left
+{
+	text-align: left;
+}
+
+.center 
+{
+	text-align: center;
+}
+
+.clickable
+{
+	cursor: pointer;
+}
+
+.full-width
+{
+	width: 100%;
+}
+
+.padding-sides-2
+{
+	padding: 0 2em;
+}
+
+.side-borders
+{
+	border-left: 2px solid white;
+	border-right: 2px solid white;
+}
+// End Sitewide Helpers
+
+
+
+// Sitewide
+body
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #333333;
+}
+// End Sitewide
+
+
+// Title
+.Product-List
+{
+	width: 122px;
+	height: 30px;
+	font-size: 22px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+}
+
+// Table
+.productTable
+{
+	border-collapse: collapse;
+	margin-bottom: 2em;
+
+	td 
+	{
+		height: 17px;
+		font-size: 12px;
+		font-weight: normal;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: normal;
+		color: #333333;
+		padding: 0 2em;
+	}
+
+	th 
+	{
+		cursor: pointer;
+		min-height: 40px;
+		width: 84px;
+		height: 40px;
+		font-size: 12px;
+		font-weight: 600;
+		font-family: 'Open Sans', sans-serif;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: normal;
+		color: #ffffff;
+		background-color: #7a8594;
+		text-align: left;
+		padding: 0 2em;
+	}
+
+	tr 
+	{
+		border-left: solid 1px #c4c4c4;
+		border-right: solid 1px #c4c4c4;
+		height: 40px;
+	}
+
+	tr:nth-of-type(odd) {
+		background: #f6f6f6;
+	}
+	tr:last-of-type {
+		border-bottom: solid 1px #c4c4c4;
+	}
+
+	.up-arrow {
+		width: 0;
+		height: 0;
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+		border-top: 10px solid white;
+		display: inline-block;
+		margin-left: 1em;
+	}
+
+	.down-arrow {
+		width: 0;
+		height: 0;
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+		border-bottom: 10px solid white;
+		display: inline-block;
+		margin-left: 1em;
+	}
+
+}
+
+
+// Form
+
+#new-product-form
+{
+
+	border: solid 1px #c4c4c4;
+	padding: 1em;
+
+	label
+	{
+		font-size: 12px;
+		font-weight: normal;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: normal;
+	}
+	
+	button
+	{
+		margin: 1em 0;
+		border-radius: 1px;
+
+		.mat-button-wrapper
+		{
+			width: 100px;
+			height: 17px;
+			font-size: 12px;
+			font-weight: 600;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			color: #ffffff;
+		}
+
+	}
+
+	button.disabledButton 
+	{
+		background-color: rgba(0,0,0,.12);
+	}
+
+	button.enabledButton
+	{
+		background-color: #4ba1a1;
+	}
+
+	.form-title
+	{
+		width: 127px;
+		height: 20px;
+		font-size: 15px;
+		font-weight: 600;
+		font-style: normal;
+		font-stretch: normal;
+		line-height: normal;
+		letter-spacing: normal;
+		color: #333333;
+		margin: 0 0 1em 0;
+	}
+
+	.input-container
+	{
+		margin: .5em 0;
+
+		input 
+		{
+			width: 260px;
+			height: 30px;
+			border-radius: 1px;
+			background-color: #ffffff;
+			border: solid 1px #919da9;
+			padding-left: 1em;
+		}
+
+		label
+		{
+			height: 17px;
+			font-size: 12px;
+			font-weight: normal;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			color: #333333;
+		}
+	}
+
+	.warning-text
+	{
+		font-size: 12px;
+	    color: red;
+	    font: icon;
+	    font-style: italic;
+	    font-weight: 700;
+	}
+}

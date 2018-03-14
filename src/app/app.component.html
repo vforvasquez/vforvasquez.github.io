@@ -1,20 +1,116 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="full-width" fxLayout="row" fxLayoutAlign="start center">
+		<p class="Product-List">Product List</p>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="space-around start">
+	<div fxFlex="67">
+		<table class="full-width productTable">
+			<tr>
+				<th class="clickable" (click)="sort('name')">
+					<span>Product Name</span>
+					<span *ngIf="currentSort?.column == 'name' && !currentSort?.ascending" class="up-arrow"></span>
+					<span *ngIf="currentSort?.column == 'name' && currentSort?.ascending" class="down-arrow"></span>
+				</th>
+				<th class="clickable side-borders" (click)="sort('price')">
+					<span>Price</span>
+					<span *ngIf="currentSort?.column == 'price' && !currentSort?.ascending" class="up-arrow"></span>
+					<span *ngIf="currentSort?.column == 'price' && currentSort?.ascending" class="down-arrow"></span>
+				</th>
+				<th class="clickable" (click)="sort('category')">
+					<span>Category</span>
+					<span *ngIf="currentSort?.column == 'category' && !currentSort?.ascending" class="up-arrow"></span>
+					<span *ngIf="currentSort?.column == 'category' && currentSort?.ascending" class="down-arrow"></span>
+				</th>
+			</tr>
+			<tr *ngFor="let row of defaultData">
+				<td>
+					{{ row.name }}
+				</td>
+				<td>
+					${{ row.price }}
+				</td>
+				<td>
+					{{ row.category }}
+				</td>
+				
+			</tr>
+		</table>
 
+		<div *ngIf="loadingData" class="full-width" fxLayout="row" fxLayoutAlign="center center">
+			<mat-spinner></mat-spinner>
+		</div>
+	</div>
+
+	 <div fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+		<form 
+			(ngSubmit)="onSubmit(productForm)" 
+			[formGroup]="productForm"
+			class="new-product-form" 
+			fxLayout="column" 
+			fxLayoutAlign="space-between start" 
+			id="new-product-form"
+		>
+			<p class="form-title">Add New Product</p>
+
+			<div class="input-container" fxLayout="column" fxLayoutAlign="center start">
+				<label for="name">Product Name</label>
+				<input 
+					type="text" 
+					name="name" 
+					id="name" 
+					required 
+					placeholder="Enter Product Name"
+					formControlName="name"
+				>
+				<div *ngIf="name.invalid && (name.dirty || name.touched)" class="full-width center">
+					<span class="warning-text" *ngIf="name.errors.required">Product Name is required.</span>
+				</div>
+			</div>
+
+			<div class="input-container" fxLayout="column" fxLayoutAlign="center start">
+				<label for="price" fxLayout="column" fxLayoutAlign="center start">Price</label>
+				<input 
+					type="number" 
+					step="0.01"
+					name="price" 
+					id="price" 
+					required 
+					placeholder="Enter Price"
+					min="0" 
+					formControlName="price"
+				>	
+				<div *ngIf="price.invalid && (price.dirty || price.touched)" class="full-width center">
+					<span class="warning-text" *ngIf="price.errors.required">Price is required.</span>
+					<span class="warning-text" *ngIf="price.errors.pattern">Please enter a valid price (Ex: 1.23)</span>
+				</div>
+			</div>
+
+			<div class="input-container" fxLayout="column" fxLayoutAlign="center start">
+				<label for="category" fxLayout="column" fxLayoutAlign="center start">Category</label>
+				<input 
+					type="text" 
+					name="category" 
+					id="category" 
+					required 
+					placeholder="Enter Category"
+					ngModel
+					matInput
+					formControlName="category"
+				>
+				<div *ngIf="category.invalid && (category.dirty || category.touched)" class="full-width center">
+					<span class="warning-text" *ngIf="category.errors.required">Category is required.</span>
+				</div>
+			</div>
+			
+			<button 
+				mat-raised-button 
+				type="submit" 
+				[disabled]="!productForm.valid"
+				[ngClass]="{'enabledButton' : productForm.valid , 'disabledButton' : !productForm.valid}"
+			>
+				Add Product
+			</button>
+
+		</form>
+
+	 </div>
+ </div>
